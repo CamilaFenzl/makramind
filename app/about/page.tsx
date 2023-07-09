@@ -1,5 +1,5 @@
-"use client";
-import { Typography } from "@mui/material";
+'use client';
+import { Typography } from '@mui/material';
 
 export default function Page() {
   return (
@@ -17,7 +17,7 @@ export default function Page() {
         <br />
         your macrame!
       </p>
-      <img src="public/about.jpg" alt="green foot bracelet" width="500" />
+      <img src="about.jpg" alt="green foot bracelet" width="500" />
     </div>
   );
 }

@@ -12,6 +12,7 @@ export default function Page() {
     <Container maxWidth="lg">
       <Box
         sx={{
+          backgroundColor: 'beige',
           my: 4,
           display: 'flex',
           flexDirection: 'column',
@@ -19,8 +20,13 @@ export default function Page() {
           alignItems: 'center',
         }}
       >
+        <img
+          src="home-1.jpg"
+          alt="Girl in nature with handmade ring"
+          width="500"
+        />
         <Typography variant="h4" component="h1" gutterBottom>
-          Material UI - Next.js example in TypeScript
+          Be unique, use handmade products.
         </Typography>
         <Link href="/about" color="secondary">
           Go to the about page
