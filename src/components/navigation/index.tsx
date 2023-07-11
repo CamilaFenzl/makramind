@@ -12,6 +12,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Toolbar from "@mui/material/Toolbar";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
+import Link from "next/link";
 import { MouseEvent, useState } from "react";
 
 const pages = [
@@ -19,7 +20,10 @@ const pages = [
   { name: "About", url: "/about" },
   { name: "Contact", url: "/contact" },
 ];
-const settings = ["Account", "Favorites", "Logout"];
+const settings = [
+  { name: "Account", url: "/account" },
+  { name: "Sign Out", url: "/sign-out" },
+];
 
 function Navigation() {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
@@ -60,7 +64,7 @@ function Navigation() {
               textDecoration: "none",
             }}
           >
-            LOGO
+            Makramind
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -120,7 +124,7 @@ function Navigation() {
               textDecoration: "none",
             }}
           >
-            LOGO
+            Makramind
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
@@ -158,8 +162,10 @@ function Navigation() {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+                <MenuItem key={setting.name} onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center">
+                    <Link href={setting.url}>{setting.name}</Link>
+                  </Typography>
                 </MenuItem>
               ))}
             </Menu>

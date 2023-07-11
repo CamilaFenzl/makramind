@@ -1,4 +1,3 @@
-"use client";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { getValidSessionByToken } from "../../../database/sessions";
@@ -12,7 +11,7 @@ export default async function LogOutPage() {
     (await getValidSessionByToken(sessionTokenCookie.value));
 
   // 3. Either redirect or render the login form
-  if (!session) redirect("/login");
+  if (!session) redirect("/sign-in");
 
   return <div>You are now signed out. Have a nice day!</div>;
 }

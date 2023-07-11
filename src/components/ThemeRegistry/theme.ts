@@ -1,9 +1,18 @@
 import { createTheme } from "@mui/material/styles";
-import { Roboto } from "next/font/google";
+import { Rubik } from "next/font/google";
+import localFont from "next/font/local";
 import { red } from "@mui/material/colors";
 
-export const roboto = Roboto({
-  weight: ["300", "400", "500", "700"],
+const caprasimo = localFont({
+  src: "../../../public/fonts/Caprasimo-Regular.ttf",
+  display: "swap",
+  weight: "400",
+  style: "normal",
+});
+
+export const rubik = Rubik({
+  weight: ["300", "500"],
+  style: ["normal", "italic"],
   subsets: ["latin"],
   display: "swap",
   fallback: ["Helvetica", "Arial", "sans-serif"],
@@ -23,9 +32,24 @@ const theme = createTheme({
     },
   },
   typography: {
-    fontFamily: roboto.style.fontFamily,
+    fontFamily: rubik.style.fontFamily,
     h1: {
-      fontSize: "48px",
+      fontFamily: caprasimo.style.fontFamily,
+    },
+    h2: {
+      fontFamily: caprasimo.style.fontFamily,
+    },
+    h3: {
+      fontFamily: caprasimo.style.fontFamily,
+    },
+    h4: {
+      fontFamily: caprasimo.style.fontFamily,
+    },
+    h5: {
+      fontFamily: caprasimo.style.fontFamily,
+    },
+    h6: {
+      fontFamily: caprasimo.style.fontFamily,
     },
   },
 });

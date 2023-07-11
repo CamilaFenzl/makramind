@@ -21,7 +21,6 @@ export default async function Page() {
   // 3. Either redirect or render the login form
   if (session) redirect("/");
 
-  // console.log('My search params', searchParams);
   return (
     <>
       <div>

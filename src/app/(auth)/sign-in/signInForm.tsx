@@ -17,6 +17,32 @@ export default function SignInForm() {
     const data = new FormData(event.currentTarget);
   };
 
+  async function login() {
+    const response = await fetch("/api/signin", {
+      method: "POST",
+      body: JSON.stringify({
+        username,
+        password,
+      }),
+    });
+
+    const data: LoginResponseBodyPost = await response.json();
+
+    if ("error" in data) {
+      setError(data.error);
+      console.log(data.error);
+      return;
+    }
+    setSuccess(true);
+    router.push(
+      getSafeReturnToPath(props.returnTo) || (`/${data.user.username}` as Route)
+    );
+    router.refresh();
+  }
+
+  const togglePassword = () => {
+    setPasswordShown(!passwordShown);
+  };
   return (
     <Box
       sx={{
