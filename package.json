@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "ley-new": "f(){ touch migrations/$(date +%s)-$1.ts; }; f",
+    "ley-new": "f(){ touch src/migrations/$(date +%s)-$1.ts; }; f",
     "migrate": "ley --require tsm"
   },
   "dependencies": {
