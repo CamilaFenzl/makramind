@@ -1,6 +1,5 @@
-"use client";
-import { Roboto } from "next/font/google";
 import { createTheme } from "@mui/material/styles";
+import { Roboto } from "next/font/google";
 import { red } from "@mui/material/colors";
 
 export const roboto = Roboto({
@@ -14,7 +13,7 @@ export const roboto = Roboto({
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#556cd6",
+      main: "#ff0000",
     },
     secondary: {
       main: "#19857b",
