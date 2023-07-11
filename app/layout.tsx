@@ -1,40 +1,27 @@
-'use client';
-import { EmotionCache } from '@emotion/react';
-import { Box, Container } from '@mui/material';
-import CssBaseline from '@mui/material/CssBaseline';
-import { ThemeProvider } from '@mui/material/styles';
-import { AppProps } from 'next/app';
-import * as React from 'react';
-import createEmotionCache from '../src/createEmotionCache';
-import theme from '../src/theme';
-import ButtonAppBar from './navigation';
-import Footer from './footer';
-
-// Client-side cache, shared for the whole session of the user in the browser.
-const clientSideEmotionCache = createEmotionCache();
-
-export interface MyAppProps extends AppProps {
-  emotionCache?: EmotionCache;
-}
+"use client";
+import CssBaseline from "@mui/material/CssBaseline";
+import { ThemeProvider } from "@mui/material/styles";
+import theme from "../src/theme";
+import Footer from "./footer";
+import Navigation from "./navigation";
+import { ReactNode } from "react";
+import { Box, Container } from "@mui/material";
 
 export default function Layout({
   children, // will be a page or nested layout
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
 }) {
   return (
     <html lang="en">
       <body>
         <ThemeProvider theme={theme}>
-          {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
           <CssBaseline />
-          <ButtonAppBar />
+          <Navigation />
           <Container maxWidth="xl">
-            <Box mt={4}>
-              {children}
-              <Footer></Footer>
-            </Box>
+            <Box mt={4}>{children}</Box>
           </Container>
+          <Footer />
         </ThemeProvider>
       </body>
     </html>

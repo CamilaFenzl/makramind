@@ -1,23 +1,17 @@
-'use client';
-import * as React from 'react';
-import Container from '@mui/material/Container';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
-import ProTip from '../src/ProTip';
-import Copyright from '../src/Copyright';
-import Link from 'next/link';
+import { Box, Container, Typography } from "@mui/material";
+import Link from "next/link";
 
 export default function Page() {
   return (
     <Container maxWidth="lg">
       <Box
         sx={{
-          backgroundColor: 'beige',
+          backgroundColor: "beige",
           my: 4,
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
         }}
       >
         <img
@@ -31,8 +25,6 @@ export default function Page() {
         <Link href="/about" color="secondary">
           Go to the about page
         </Link>
-        <ProTip />
-        <Copyright />
       </Box>
     </Container>
   );
