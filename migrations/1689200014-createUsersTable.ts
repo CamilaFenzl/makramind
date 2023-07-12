@@ -12,6 +12,7 @@ export async function up(sql: Sql) {
       id integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
       username varchar(80) NOT NULL UNIQUE,
       email varchar(80) NOT NULL,
+      password_hash varchar(80) NOT NULL
     )
   `;
 }

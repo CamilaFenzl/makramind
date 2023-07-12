@@ -1,4 +1,5 @@
 "use client";
+import { RegisterResponseBodyPost } from "@/app/api/(auth)/sign-up/route";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
@@ -9,17 +10,33 @@ import Grid from "@mui/material/Grid";
 import Link from "@mui/material/Link";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
-import { FormEvent } from "react";
+import { useRouter } from "next/navigation";
+import { FormEvent, useState } from "react";
 
 export default function SignUpForm() {
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const router = useRouter();
+
+  async function register() {
+    const response = await fetch("/api/sign-up", {
+      method: "POST",
+      body: JSON.stringify({ username, email, password }),
     });
-  };
+
+    const data: RegisterResponseBodyPost = await response.json();
+
+    if ("error" in data) {
+      setError(data.error);
+      return;
+    }
+
+    router.push(`/account/${data.user.username}`);
+    // we may have in the future revalidatePath()
+    router.refresh();
+  }
 
   return (
     <Box
@@ -36,68 +53,60 @@ export default function SignUpForm() {
       <Typography component="h1" variant="h5">
         Sign up
       </Typography>
-      <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-        <Grid container spacing={2}>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              autoComplete="given-name"
-              name="firstName"
-              required
-              fullWidth
-              id="firstName"
-              label="First Name"
-              autoFocus
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              required
-              fullWidth
-              id="lastName"
-              label="Last Name"
-              name="lastName"
-              autoComplete="family-name"
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="new-password"
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <FormControlLabel
-              control={<Checkbox value="allowExtraEmails" color="primary" />}
-              label="I want to receive inspiration, marketing promotions and updates via email."
-            />
-          </Grid>
-        </Grid>
+      <Box
+        component="form"
+        noValidate
+        onSubmit={(event) => event.preventDefault()}
+        sx={{ mt: 3 }}
+      >
+        <TextField
+          margin="normal"
+          required
+          fullWidth
+          id="username"
+          label="Username"
+          name="username"
+          autoComplete="username"
+          autoFocus
+          value={username}
+          onChange={(event) => setUsername(event.currentTarget.value)}
+        />
+        <TextField
+          margin="normal"
+          required
+          fullWidth
+          id="email"
+          label="Email Address"
+          name="email"
+          autoComplete="email"
+          type="email"
+          value={email}
+          onChange={(event) => setEmail(event.currentTarget.value)}
+        />
+        <TextField
+          margin="normal"
+          required
+          fullWidth
+          name="password"
+          label="Password"
+          type="password"
+          id="password"
+          autoComplete="new-password"
+          value={password}
+          onChange={(event) => setPassword(event.currentTarget.value)}
+        />
         <Button
           type="submit"
           fullWidth
           variant="contained"
+          onClick={async () => await register()}
           sx={{ mt: 3, mb: 2 }}
         >
           Sign Up
         </Button>
         <Grid container justifyContent="flex-end">
           <Grid item>
-            <Link href="#" variant="body2">
+            <Link href="/sign-in" variant="body2">
               Already have an account? Sign in
             </Link>
           </Grid>

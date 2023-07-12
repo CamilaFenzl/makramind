@@ -1,24 +1,31 @@
 "use client";
+import { LoginResponseBodyPost } from "@/app/api/(auth)/sign-in/route";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import { Alert } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import Checkbox from "@mui/material/Checkbox";
-import FormControlLabel from "@mui/material/FormControlLabel";
 import Grid from "@mui/material/Grid";
 import Link from "@mui/material/Link";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
-import { FormEvent } from "react";
+import { Route } from "next";
+import { useRouter } from "next/navigation";
+import { FormEvent, useState } from "react";
 
-export default function SignInForm() {
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-  };
+import { getSafeReturnToPath } from "util/validation";
+
+type Props = { returnTo?: string | string[] };
+
+export default function SignInForm(props: Props) {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState<string>();
+  const router = useRouter();
 
   async function login() {
-    const response = await fetch("/api/signin", {
+    const response = await fetch("/api/sign-in", {
       method: "POST",
       body: JSON.stringify({
         username,
@@ -39,10 +46,6 @@ export default function SignInForm() {
     );
     router.refresh();
   }
-
-  const togglePassword = () => {
-    setPasswordShown(!passwordShown);
-  };
   return (
     <Box
       sx={{
@@ -58,16 +61,23 @@ export default function SignInForm() {
       <Typography component="h1" variant="h5">
         Sign in
       </Typography>
-      <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+      <Box
+        component="form"
+        onSubmit={(event) => event.preventDefault()}
+        noValidate
+        sx={{ mt: 1 }}
+      >
         <TextField
           margin="normal"
           required
           fullWidth
-          id="email"
-          label="Email Address"
-          name="email"
-          autoComplete="email"
+          id="username"
+          label="Username"
+          name="username"
+          autoComplete="username"
           autoFocus
+          value={username}
+          onChange={(event) => setUsername(event.currentTarget.value)}
         />
         <TextField
           margin="normal"
@@ -75,18 +85,17 @@ export default function SignInForm() {
           fullWidth
           name="password"
           label="Password"
-          type="password"
           id="password"
           autoComplete="current-password"
-        />
-        <FormControlLabel
-          control={<Checkbox value="remember" color="primary" />}
-          label="Remember me"
+          type="password"
+          value={password}
+          onChange={(event) => setPassword(event.currentTarget.value)}
         />
         <Button
           type="submit"
           fullWidth
           variant="contained"
+          onClick={async () => await login()}
           sx={{ mt: 3, mb: 2 }}
         >
           Sign In
@@ -98,11 +107,17 @@ export default function SignInForm() {
             </Link>
           </Grid>
           <Grid item>
-            <Link href="#" variant="body2">
+            <Link href="/sign-up" variant="body2">
               {"Don't have an account? Sign Up"}
             </Link>
           </Grid>
         </Grid>
+        {error !== "" && <Alert severity="error">{error}</Alert>}
+        {success && (
+          <Alert severity="success">
+            Succesfull login! Please wait to be directed to your profile
+          </Alert>
+        )}
       </Box>
     </Box>
   );

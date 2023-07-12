@@ -3,8 +3,8 @@ import bcrypt from "bcrypt";
 import { cookies } from "next/dist/client/components/headers";
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import { createSession } from "../../../../database/sessions";
-import { getUserWithPasswordHashByUsername } from "../../../../database/users";
+import { createSession } from "../../../../../database/sessions";
+import { getUserWithPasswordHashByUsername } from "../../../../../database/users";
 import { secureCookieOptions } from "util/cookies";
 
 type Error = {
@@ -25,7 +25,7 @@ const userSchema = z.object({
 /**
  * C = Create   POST
  * R = Read     GET
- * U = Update   PATCH ou PUT
+ * U = Update   PATCH or PUT
  * D = Delete   DELETE
  */
 export async function POST(

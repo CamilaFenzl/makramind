@@ -1,6 +1,6 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { getValidSessionByToken } from "../../../database/sessions";
+import { getValidSessionByToken } from "../../../../database/sessions";
 import SignUpForm from "./signUpForm";
 
 export const metadata = {
@@ -23,14 +23,5 @@ export default async function Page() {
     redirect("/");
   }
 
-  return (
-    <>
-      <div>
-        <h1>Makramind - Sign Up</h1>
-      </div>
-      <div>
-        <SignUpForm />
-      </div>
-    </>
-  );
+  return <SignUpForm />;
 }

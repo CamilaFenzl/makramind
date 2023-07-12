@@ -20,9 +20,18 @@ export const rubik = Rubik({
 
 // Create a theme instance.
 const theme = createTheme({
+  components: {
+    MuiCssBaseline: {
+      styleOverrides: {
+        body: {
+          backgroundColor: "beige",
+        },
+      },
+    },
+  },
   palette: {
     primary: {
-      main: "#ff0000",
+      main: "#69d7f1", // tomato
     },
     secondary: {
       main: "#19857b",

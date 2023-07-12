@@ -23,6 +23,7 @@ import ThemeRegistry from "@/components/ThemeRegistry/ThemeRegistry";
 import Navigation from "@/components/navigation";
 import Footer from "@/components/footer";
 import { Container } from "@mui/material";
+import Grid from "@mui/material/Unstable_Grid2/Grid2";
 
 export const metadata = {
   title: "Next.js App Router + Material UI v5",
@@ -40,7 +41,18 @@ export default function RootLayout({
         <ThemeRegistry>
           <Navigation />
           <Container maxWidth="xl">
-            <Box mt={4}>{children}</Box>
+            <Grid container>
+              <Grid md={8} mdOffset={2}>
+                <Box
+                  sx={{
+                    backgroundColor: "beige",
+                    my: 4,
+                  }}
+                >
+                  {children}
+                </Box>
+              </Grid>
+            </Grid>
           </Container>
           <Footer />
         </ThemeRegistry>

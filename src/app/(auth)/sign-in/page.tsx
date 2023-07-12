@@ -1,6 +1,6 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { getValidSessionByToken } from "../../../database/sessions";
+import { getValidSessionByToken } from "../../../../database/sessions";
 import SignInForm from "./signInForm";
 
 export const metadata = {
@@ -8,7 +8,9 @@ export const metadata = {
   description: "Sign In to access your account.",
 };
 
-export default async function Page() {
+type Props = { searchParams: { returnTo?: string | string[] } };
+
+export default async function Page({ searchParams }: Props) {
   // if the user is logged in redirect
 
   // 1. Check if the sessionToken cookie exit
@@ -21,14 +23,5 @@ export default async function Page() {
   // 3. Either redirect or render the login form
   if (session) redirect("/");
 
-  return (
-    <>
-      <div>
-        <h1>Makramind - Sign In</h1>
-      </div>
-      <div>
-        <SignInForm />
-      </div>
-    </>
-  );
+  return <SignInForm returnTo={searchParams.returnTo} />;
 }
