@@ -51,15 +51,12 @@ export async function POST(
     result.data.username
   );
 
-  // check userWithPasswordHash
-  // console.log('userWithPassHash', userWithPasswordHash);
-
   if (!userWithPasswordHash) {
     return NextResponse.json(
       {
-        error: "User or password not valid!",
+        error: "User not found.",
       },
-      { status: 401 }
+      { status: 404 }
     );
   }
 

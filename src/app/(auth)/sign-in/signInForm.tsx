@@ -37,15 +37,18 @@ export default function SignInForm(props: Props) {
 
     if ("error" in data) {
       setError(data.error);
-      console.log(data.error);
       return;
     }
+
     setSuccess(true);
+
     router.push(
-      getSafeReturnToPath(props.returnTo) || (`/${data.user.username}` as Route)
+      getSafeReturnToPath(props.returnTo) ||
+        (`/account/${data.user.username}` as Route)
     );
     router.refresh();
   }
+
   return (
     <Box
       sx={{

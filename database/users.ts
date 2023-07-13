@@ -35,12 +35,12 @@ export const getUserByUsername = cache(async (username: string) => {
 });
 
 export const createUser = cache(
-  async (username: string, passwordHash: string, email: string) => {
+  async (username: string, email: string, passwordHash: string) => {
     const [user] = await sql<User[]>`
     INSERT INTO users
-      (username, password_hash, email)
+      (username, email, password_hash)
     VALUES
-      (${username.toLowerCase()}, ${passwordHash}, ${email})
+      (${username.toLowerCase()}, ${email}, ${passwordHash})
     RETURNING
       id,
       username,

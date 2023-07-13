@@ -1,4 +1,4 @@
 "use client";
 export default function Page() {
-    return <>Products overview</>;
+  return <>Tutorials overview</>;
 }

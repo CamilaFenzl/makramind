@@ -29,6 +29,7 @@ export const createSession = cache(async (token: string, userId: number) => {
 });
 
 export const deleteSessionByToken = cache(async (token: string) => {
+  console.log("deleting session cookie");
   const [session] = await sql<{ id: number; token: string }[]>`
     DELETE FROM
       sessions

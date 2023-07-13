@@ -7,6 +7,10 @@ const nextConfig = {
       transform: '@mui/icons-material/{{member}}',
     },
   },
+  experimental: {
+    typedRoutes: true,
+    serverActions: true,
+  },
 };
 
 module.exports = nextConfig;
