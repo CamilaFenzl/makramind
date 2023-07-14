@@ -21,9 +21,7 @@ import { SignOutButton } from "../SignOutButton/SignOutButton";
 
 const pages = [
   { name: "Patterns", url: "/patterns" },
-  { name: "Tutorials", url: "/tutorials" },
   { name: "About", url: "/about" },
-  { name: "Contact", url: "/contact" },
 ];
 
 function Navigation() {

@@ -26,6 +26,12 @@ const theme = createTheme({
         body: {
           backgroundColor: "beige",
         },
+        img: {
+          maxWidth: "100%",
+          height: "auto",
+          padding: 0,
+          margin: 0,
+        },
       },
     },
   },

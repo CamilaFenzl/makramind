@@ -1,56 +1,58 @@
-"use client";
-import Grid from '@mui/material/Unstable_Grid2'; // Grid version 2
-import { products } from '../../../src/products';
-import { Button, FormGroup, TextField, Typography } from '@mui/material';
+import Grid from "@mui/material/Unstable_Grid2"; // Grid version 2
+import { Typography } from "@mui/material";
+import { getPatternById } from "database/patterns";
+import LiteYouTubeEmbed from "react-lite-youtube-embed";
+// import "react-lite-youtube-embed/dist/LiteYouTubeEmbed.css";
 
-export default function Page({
+export default async function Page({
   params,
   searchParams,
 }: {
-  params: { id: string }
-  searchParams: { [key: string]: string | string[] | undefined }
+  params: { id: string };
+  searchParams: { [key: string]: string | string[] | undefined };
 }) {
+  const pattern = await getPatternById(+params.id);
 
-  const currentProduct = products[+params.id];
+  // const onPlayerReady: YouTubeProps["onReady"] = (event) => {
+  //   // access to player in all event handlers via event.target
+  //   event.target.pauseVideo();
+  // };
 
-  const textFieldStyles = {
-    root: {
-      background: 'red',
-      borderTopRightRadius: 0,
-      borderBottomRightRadius: 0,
-      maxWidth: '4rem'
-    }
-  };
+  // const opts: YouTubeProps["opts"] = {
+  //   height: "390",
+  //   width: "640",
+  //   playerVars: {
+  //     // https://developers.google.com/youtube/player_parameters
+  //     autoplay: 1,
+  //   },
+  // };
 
-  const buttonStyles = {
-    root: {
-      borderTopLeftRadius: 0,
-      borderBottomLeftRadius: 0,
-      textTransform: "lowercase"
-    }
-  };
-
-  return(
+  return (
     <Grid container>
-      <Grid md={4}>
-        Photo
+      <Typography component={"h1"} variant="h4">
+        {pattern.title}
+      </Typography>
+      <Grid md={8} mdOffset={2}>
+        <div>
+          {/* <LiteYouTubeEmbed
+            id="L2vS_050c-M"
+            title="What’s new in Material Design for the web (Chrome Dev Summit 2019)"
+          /> */}
+        </div>
+        {/* <LiteYouTubeEmbed
+          aspectHeight={9}
+          aspectWidth={16}
+          id={pattern.videoUrl}
+          title={pattern.title}
+        /> */}
       </Grid>
       <Grid md={8}>
-        <Typography variant="h1">
-          {currentProduct.name}
+        <Typography component={"h2"} variant="h5">
+          {pattern.subtitle}
         </Typography>
-        <p>
-          {currentProduct.description}
-        </p>
-        <FormGroup row>
-          <Button variant="contained" disableElevation sx={buttonStyles}>
-            -
-          </Button>
-          <TextField variant="outlined" placeholder="1" sx={textFieldStyles}/>
-          <Button variant="contained" disableElevation sx={buttonStyles}>
-            +
-          </Button>
-        </FormGroup>
+        <Typography component={"p"} variant="body2">
+          {pattern.description}
+        </Typography>
       </Grid>
     </Grid>
   );
