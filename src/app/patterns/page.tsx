@@ -1,7 +1,7 @@
 import Thumbnail from "@/components/thumbnail";
 import { Box, Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2/Grid2";
-import { getAllPatterns, getLatestPatterns } from "database/patterns";
+import { getAllPatterns } from "database/patterns";
 
 export default async function Page() {
   const patterns = await getAllPatterns();
