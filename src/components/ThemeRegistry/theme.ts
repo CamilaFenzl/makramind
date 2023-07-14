@@ -34,6 +34,11 @@ const theme = createTheme({
         },
       },
     },
+    MuiStack: {
+      defaultProps: {
+        useFlexGap: true,
+      },
+    },
   },
   palette: {
     primary: {

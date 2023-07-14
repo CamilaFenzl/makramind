@@ -1,9 +1,12 @@
 import Grid from "@mui/material/Unstable_Grid2"; // Grid version 2
-import { Link, Typography } from "@mui/material";
+import { Box, Button, Link, Stack, Typography } from "@mui/material";
 import { getPatternById } from "database/patterns";
-import LiteYouTubeEmbed from "react-lite-youtube-embed";
 import Player from "@/components/player";
-// import "react-lite-youtube-embed/dist/LiteYouTubeEmbed.css";
+import { notFound } from "next/navigation";
+import { cookies } from "next/headers";
+import { getUserBySessionToken } from "database/users";
+import FavoriteButton from "@/components/favoriteButton";
+import { getFavoritedByUserId } from "database/favorites";
 
 export default async function Page({
   params,
@@ -13,6 +16,23 @@ export default async function Page({
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
   const pattern = await getPatternById(+params.id);
+
+  if (!pattern) {
+    notFound();
+  }
+
+  const cookieStore = cookies();
+  const sessionToken = cookieStore.get("sessionToken");
+
+  const user =
+    sessionToken && (await getUserBySessionToken(sessionToken.value));
+  const favorites = (user && (await getFavoritedByUserId(user.id))) || [];
+  const favorite = favorites?.find((fav) => {
+    console.log(fav.id, pattern.id);
+    return fav.id == pattern.id;
+  });
+
+  console.log("favorite", favorite);
 
   return (
     <Grid container>
@@ -33,9 +53,24 @@ export default async function Page({
         <Player id={pattern.videoUrl} />
       </Grid>
       <Grid md={8}>
-        <Typography component={"h2"} variant="h5" mb={2}>
-          {pattern.subtitle}
-        </Typography>
+        <Stack direction={"row"}>
+          <Typography component={"h2"} variant="h5" mb={2}>
+            {pattern.subtitle}
+          </Typography>
+          {user && (
+            <Box
+              sx={{
+                flex: "0 0 auto",
+              }}
+            >
+              <FavoriteButton
+                userId={user.id}
+                patternId={pattern.id}
+                favoriteId={favorite?.favoriteId}
+              />
+            </Box>
+          )}
+        </Stack>
         <Typography component={"p"} variant="body1">
           {pattern.description}
         </Typography>

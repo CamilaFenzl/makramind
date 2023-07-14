@@ -9,37 +9,43 @@ import {
   Typography,
 } from "@mui/material";
 import { notFound } from "next/navigation";
-import { getUserByUsername } from "../../../../database/users";
+import {
+  getUserBySessionToken,
+  getUserByUsername,
+} from "../../../../database/users";
 import { SignOutButton } from "@/components/SignOutButton/SignOutButton";
+import { cookies } from "next/headers";
+import { getFavoritedByUserId } from "database/favorites";
+import Thumbnail from "@/components/thumbnail";
 
 type Props = {
   params: { username: string };
 };
 
 export default async function Page({ params }: Props) {
-  const user = await getUserByUsername(params.username);
+  const cookieStore = cookies();
+  const sessionToken = cookieStore.get("sessionToken");
 
-  // return (
-  //   <>
-  //     <div>id: {user.id}</div>
-  //     <div>username: {user.username}</div>
-  //     <SignOutButton />
-  //   </>
-  // );
+  const user =
+    sessionToken && (await getUserBySessionToken(sessionToken.value));
+
+  const favorites = (user && (await getFavoritedByUserId(user.id))) || [];
+
+  console.log("favorites", favorites);
 
   return (
     <Stack spacing={4}>
       <Card>
         <CardContent>
           <Grid container>
-            <Grid xs={12} md={4}>
+            <Grid item xs={12} md={4}>
               <Typography variant="h6">Details</Typography>
             </Grid>
-            <Grid xs={12} md={8}>
+            <Grid item xs={12} md={8}>
               <Stack spacing={3}>
                 <Stack alignItems="center" direction="row" spacing={2}>
                   <TextField
-                    defaultValue={user.username}
+                    defaultValue={user?.username}
                     label="Username"
                     sx={{ flexGrow: 1 }}
                     disabled
@@ -47,7 +53,7 @@ export default async function Page({ params }: Props) {
                 </Stack>
                 <Stack alignItems="center" direction="row" spacing={2}>
                   <TextField
-                    defaultValue={user.email}
+                    defaultValue={user?.email}
                     disabled
                     label="Email Address"
                     sx={{
@@ -76,10 +82,26 @@ export default async function Page({ params }: Props) {
       <Card>
         <CardContent>
           <Grid container>
-            <Grid xs={12} md={4}>
+            <Grid item xs={12} md={4}>
+              <Typography variant="h6">Favorites</Typography>
+            </Grid>
+            <Grid item xs={12} md={8}>
+              <Stack direction={"row"} alignItems="flex-start" spacing={3}>
+                {favorites.map((fav) => (
+                  <Thumbnail data={fav} />
+                ))}
+              </Stack>
+            </Grid>
+          </Grid>
+        </CardContent>
+      </Card>
+      <Card>
+        <CardContent>
+          <Grid container>
+            <Grid item xs={12} md={4}>
               <Typography variant="h6">Sign Out</Typography>
             </Grid>
-            <Grid xs={12} md={8}>
+            <Grid item xs={12} md={8}>
               <Stack alignItems="flex-start" spacing={3}>
                 <SignOutButton />
               </Stack>

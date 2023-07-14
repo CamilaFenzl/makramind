@@ -13,7 +13,7 @@ export default function Thumbnail(props: Props) {
           borderRadius: 2,
         }}
       >
-        <CardMedia component="img" image={data?.imageUrl} />
+        <CardMedia component="img" image={`/${data?.imageUrl}`} />
         <CardContent
           sx={{
             minHeight: {
