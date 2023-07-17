@@ -1,6 +1,6 @@
-import { cache } from "react";
-import { sql } from "./connect";
-import { Pattern } from "migrations/1689339298-createPatternsTable";
+import { cache } from 'react';
+import { sql } from './connect';
+import { Pattern } from 'migrations/1689339298-createPatternsTable';
 
 export const getPatternById = cache(async (id: number) => {
   const [pattern] = await sql<Pattern[]>`
@@ -18,9 +18,9 @@ export const getPatternById = cache(async (id: number) => {
 export const getLatestPatterns = cache(async () => {
   const patterns = await sql<Pattern[]>`
   SELECT
-    * 
+    *
   FROM
-    patterns 
+    patterns
   ORDER BY
     id DESC
   LIMIT

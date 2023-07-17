@@ -1,32 +1,32 @@
-"use client";
-import { LoginResponseBodyPost } from "@/app/api/(auth)/sign-in/route";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import { Alert } from "@mui/material";
-import Avatar from "@mui/material/Avatar";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Grid from "@mui/material/Grid";
-import Link from "@mui/material/Link";
-import TextField from "@mui/material/TextField";
-import Typography from "@mui/material/Typography";
-import { Route } from "next";
-import { useRouter } from "next/navigation";
-import { FormEvent, useState } from "react";
+'use client';
+import { LoginResponseBodyPost } from '@/app/api/(auth)/sign-in/route';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import { Alert } from '@mui/material';
+import Avatar from '@mui/material/Avatar';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Grid from '@mui/material/Grid';
+import Link from '@mui/material/Link';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
+import { Route } from 'next';
+import { useRouter } from 'next/navigation';
+import { FormEvent, useState } from 'react';
 
-import { getSafeReturnToPath } from "util/validation";
+import { getSafeReturnToPath } from 'util/validation';
 
 type Props = { returnTo?: string | string[] };
 
 export default function SignInForm(props: Props) {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState<string>();
   const router = useRouter();
 
   async function login() {
-    const response = await fetch("/api/sign-in", {
-      method: "POST",
+    const response = await fetch('/api/sign-in', {
+      method: 'POST',
       body: JSON.stringify({
         username,
         password,
@@ -35,7 +35,7 @@ export default function SignInForm(props: Props) {
 
     const data: LoginResponseBodyPost = await response.json();
 
-    if ("error" in data) {
+    if ('error' in data) {
       setError(data.error);
       return;
     }
@@ -44,7 +44,7 @@ export default function SignInForm(props: Props) {
 
     router.push(
       getSafeReturnToPath(props.returnTo) ||
-        (`/account/${data.user.username}` as Route)
+        (`/account/${data.user.username}` as Route),
     );
     router.refresh();
   }
@@ -53,12 +53,12 @@ export default function SignInForm(props: Props) {
     <Box
       sx={{
         marginTop: 8,
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
       }}
     >
-      <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+      <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
         <LockOutlinedIcon />
       </Avatar>
       <Typography component="h1" variant="h5">
@@ -115,7 +115,7 @@ export default function SignInForm(props: Props) {
             </Link>
           </Grid>
         </Grid>
-        {error !== "" && <Alert severity="error">{error}</Alert>}
+        {error && <Alert severity="error">{error}</Alert>}
         {success && (
           <Alert severity="success">
             Succesfull login! Please wait to be directed to your profile

@@ -1,11 +1,11 @@
-import React from "react";
-import Card from "@mui/material/Card";
-import CardMedia from "@mui/material/CardMedia";
-import CardContent from "@mui/material/CardContent";
-import { Box, Stack, Typography } from "@mui/material";
-import Image from "next/image";
-import SplashImage from "../../../public/images/splash.jpg";
-import Grid from "@mui/material/Unstable_Grid2/Grid2";
+import React from 'react';
+import Card from '@mui/material/Card';
+import CardMedia from '@mui/material/CardMedia';
+import CardContent from '@mui/material/CardContent';
+import { Box, Stack, Typography } from '@mui/material';
+import Image from 'next/image';
+import SplashImage from '../../../public/images/splash.jpg';
+import Grid from '@mui/material/Unstable_Grid2/Grid2';
 
 export default function Splash() {
   return (
@@ -22,8 +22,7 @@ export default function Splash() {
             Be unique, use handmade products.
           </Typography>
           <Typography variant="body2">
-            Git is a distributed version control system. Every dev has a working
-            copy of the code and...
+            <>...</>
           </Typography>
         </Box>
       </Grid>

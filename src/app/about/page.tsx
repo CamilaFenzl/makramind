@@ -4,7 +4,7 @@ import { Typography } from '@mui/material';
 export default function Page() {
   return (
     <div className="about">
-      <Typography variant="h1">
+      <Typography variant="h2" component="h1">
         Use handmade work and strengthen independent movement.
       </Typography>
       <Typography variant="h4">Slow handmade e-commerce</Typography>
@@ -17,7 +17,7 @@ export default function Page() {
         <br />
         your macrame!
       </p>
-      <img src="about.jpg" alt="green foot bracelet" width="500" />
+      <img src="/images/product-8.jpg" alt="Necklace over a rock" width="500" />
     </div>
   );
 }

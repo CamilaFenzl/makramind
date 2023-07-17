@@ -1,7 +1,7 @@
-import { cache } from "react";
-import { sql } from "./connect";
-import { Favorite } from "migrations/1689339303-createFavoritesTable";
-import { Pattern } from "migrations/1689339298-createPatternsTable";
+import { cache } from 'react';
+import { sql } from './connect';
+import { Favorite } from 'migrations/1689339303-createFavoritesTable';
+import { Pattern } from 'migrations/1689339298-createPatternsTable';
 
 type FavoritedPattern = Pattern & {
   favoriteId: number;
@@ -36,7 +36,7 @@ export const createFavorite = cache(
       pattern_id
     `;
     return favorite;
-  }
+  },
 );
 
 // display favorited patterns on profile
