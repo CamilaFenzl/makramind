@@ -87,8 +87,8 @@ export default async function Page({ params }: Props) {
             </Grid>
             <Grid item xs={12} md={8}>
               <Grid>
-                {favorites.map((fav) => (
-                  <Grid item sm={3}>
+                {favorites.map((fav, i) => (
+                  <Grid key={i} item sm={3}>
                     <Thumbnail data={fav} />
                   </Grid>
                 ))}

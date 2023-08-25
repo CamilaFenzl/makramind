@@ -9,13 +9,10 @@ export default function Page() {
       </Typography>
       <Typography variant="h4">Slow handmade e-commerce</Typography>
       <p>
-        Our macrame were born out of the need to feel represented on this
-        bjhguzfutdc.
+        Our macrame is born out of the need to feel represented on this world.
         <br />
-        Do you have an original ideia? Write me and together we can brig it to
+        Do you have an original ideia? Write me and together we can bring it to
         life!
-        <br />
-        your macrame!
       </p>
       <img src="/images/product-8.jpg" alt="Necklace over a rock" width="500" />
     </div>

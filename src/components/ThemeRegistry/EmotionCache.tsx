@@ -4,7 +4,10 @@ import * as React from 'react';
 import createCache from '@emotion/cache';
 import { useServerInsertedHTML } from 'next/navigation';
 import { CacheProvider as DefaultCacheProvider } from '@emotion/react';
-import type { EmotionCache, Options as OptionsOfCreateCache } from '@emotion/cache';
+import type {
+  EmotionCache,
+  Options as OptionsOfCreateCache,
+} from '@emotion/cache';
 
 export type NextAppDirEmotionCacheProviderProps = {
   /** This is the options passed to createCache() from 'import createCache from "@emotion/cache"' */
@@ -18,11 +21,12 @@ export type NextAppDirEmotionCacheProviderProps = {
 };
 
 // This implementation is taken from https://github.com/garronej/tss-react/blob/main/src/next/appDir.tsx
-export default function NextAppDirEmotionCacheProvider(props: NextAppDirEmotionCacheProviderProps) {
+export default function NextAppDirEmotionCacheProvider(
+  props: NextAppDirEmotionCacheProviderProps,
+) {
   const { options, CacheProvider = DefaultCacheProvider, children } = props;
 
-  const [{ cache, flush }] = React.useState(() => {
-    // eslint-disable-next-line @typescript-eslint/no-shadow
+  const [data] = React.useState(() => {
     const cache = createCache(options);
     cache.compat = true;
     const prevInsert = cache.insert;
@@ -34,7 +38,7 @@ export default function NextAppDirEmotionCacheProvider(props: NextAppDirEmotionC
       }
       return prevInsert(...args);
     };
-    // eslint-disable-next-line @typescript-eslint/no-shadow
+
     const flush = () => {
       const prevInserted = inserted;
       inserted = [];
@@ -44,19 +48,19 @@ export default function NextAppDirEmotionCacheProvider(props: NextAppDirEmotionC
   });
 
   useServerInsertedHTML(() => {
-    const names = flush();
+    const names = data.flush();
     if (names.length === 0) {
       return null;
     }
     let styles = '';
     // eslint-disable-next-line no-restricted-syntax
     for (const name of names) {
-      styles += cache.inserted[name];
+      styles += data.cache.inserted[name];
     }
     return (
       <style
-        key={cache.key}
-        data-emotion={`${cache.key} ${names.join(' ')}`}
+        key={data.cache.key}
+        data-emotion={`${data.cache.key} ${names.join(' ')}`}
         // eslint-disable-next-line react/no-danger
         dangerouslySetInnerHTML={{
           __html: styles,
@@ -65,5 +69,5 @@ export default function NextAppDirEmotionCacheProvider(props: NextAppDirEmotionC
     );
   });
 
-  return <CacheProvider value={cache}>{children}</CacheProvider>;
+  return <CacheProvider value={data.cache}>{children}</CacheProvider>;
 }

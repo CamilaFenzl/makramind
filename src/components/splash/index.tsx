@@ -21,9 +21,7 @@ export default function Splash() {
           <Typography component="h1" variant="h2">
             Be unique, use handmade products.
           </Typography>
-          <Typography variant="body2">
-            <>...</>
-          </Typography>
+          <Typography variant="body2"></Typography>
         </Box>
       </Grid>
     </Grid>
